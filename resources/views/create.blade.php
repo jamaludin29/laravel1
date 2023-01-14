@@ -43,7 +43,7 @@
         </div>
     </div>
     <div style="margin-top: 40px">
-        Copyright © <?php echo date("Y"); ?> Duniailkom
+        Copyright ©2023 -  <?php echo date("Y"); ?> Duniailkom
     </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
