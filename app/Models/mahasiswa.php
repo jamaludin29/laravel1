@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class mahasiswa extends Model
 {
-    use HasFactory;
-    protected $protect = ['id'];
-
+    use HasFactory, SoftDeletes;
+    protected $fillable = [
+        'nim','nama','alamat','jurusan','contact','ipk'
+    ];
 }

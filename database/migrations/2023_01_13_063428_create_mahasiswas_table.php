@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateMahasiswasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,7 +20,8 @@ return new class extends Migration
             $table->text('alamat');
             $table->string('jurusan');
             $table->string('contact');
-            $table->double('ipk');
+            $table->float('ipk');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -34,4 +35,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('mahasiswas');
     }
-};
+}

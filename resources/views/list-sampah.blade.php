@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Daftar Mahasiswa</title>
+    <title>List Sampah</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
@@ -30,10 +30,9 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="{{ route('mahasiswa.create') }}" class="btn btn-md btn-success mb-3 float-right">Input Mahasiswa</a>
-                        @if($sampah > 0)
-                        <a href="{{ route('list.sampah') }}" class="btn btn-md btn-warning mb-3 float-left">Recycle Mahasiswa</a>
-                        @endif
+                        <a href="{{ route('sampah.mahasiswa.restore') }}" class="btn btn-md btn-success mb-3 float-right">Pulihkan Semua</a>&nbsp;
+                        <a href="{{ route('sampah.mahasiswa.delete') }}" class="btn btn-md btn-danger mb-3 mr-3 float-right">Hapus Semua</a>
+
                         <table class="table table-bordered mt-1">
                             <thead>
                                 <tr>
@@ -67,9 +66,9 @@
                                     </td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                            action="{{ route('mahasiswa.destroy', $m->id) }}" method="POST">
-                                            <a href="{{ route('mahasiswa.edit', $m->id) }}"
-                                                class="btn btn-sm btn-primary">EDIT</a>
+                                            action="{{ route('sampah.mahasiswa.delete', $m->id) }}" method="POST">
+                                            <a href="{{ route('sampah.mahasiswa.restore', $m->id) }}"
+                                                class="btn btn-sm btn-primary">PULIHKAN</a>
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
