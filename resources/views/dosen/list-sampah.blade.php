@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>List Sampah</title>
+    <title>List Sampah Data Dosen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
@@ -30,8 +30,8 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="{{ route('sampahdosen.dosen.restore') }}" class="btn btn-md btn-success mb-3 float-right">Pulihkan Semua</a>&nbsp;
-                        <a href="{{ route('sampahdosen.dosen.delete') }}" class="btn btn-md btn-danger mb-3 mr-3 float-right">Hapus Semua</a>
+                        <a href="{{ route('sampah.dosen.restore') }}" class="btn btn-md btn-success mb-3 float-right">Pulihkan Semua</a>&nbsp;
+                        <a href="{{ route('sampah.dosen.delete') }}" class="btn btn-md btn-danger mb-3 mr-3 float-right">Hapus Semua</a>
 
                         <table class="table table-bordered mt-1">
                             <thead>
@@ -56,8 +56,8 @@
                                     <td>{{ $m->contact }}</td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                            action="{{ route('sampahdosen.dosen.delete', $m->id) }}" method="POST">
-                                            <a href="{{ route('sampahdosen.dosen.restore', $m->id) }}"
+                                            action="{{ route('sampah.dosen.delete', $m->id) }}" method="POST">
+                                            <a href="{{ route('sampah.dosen.restore', $m->id) }}"
                                                 class="btn btn-sm btn-primary">PULIHKAN</a>
                                             @csrf
                                             @method('DELETE')

@@ -80,8 +80,31 @@ class DosenController extends Controller
      * @param  \App\Models\dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(dosen $dosen)
+    public function destroy( $id)
     {
-        //
+        $dosen = dosen::findOrFail($id);
+        $dosen->delete();
+        if ($dosen) {
+            return redirect()
+                ->route('dosen.index')
+                ->with([
+                    'success' => 'Data Dosen Berhasil Dihapus'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Terjadi Kesalahan, Tolong Periksa'
+                ]);
+        }
+    }
+
+    public function listsampah()
+    {
+        $dosen = dosen::onlyTrashed()->get();
+            return view('dosen.list-sampah', compact(
+                'dosen'
+            ));
     }
 }
