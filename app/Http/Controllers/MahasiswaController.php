@@ -16,7 +16,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = mahasiswa::latest()->get();
         $sampah = mahasiswa::onlyTrashed()->count();
-        return view('mahasiswa', compact('mahasiswa','sampah'));
+        return view('mahasiswa.mahasiswa', compact('mahasiswa','sampah'));
     }
 
     /**
@@ -26,7 +26,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('mahasiswa.create');
     }
 
     /**
@@ -91,7 +91,7 @@ class MahasiswaController extends Controller
     public function edit($id)
     {
         $mahasiswa = mahasiswa::findOrFail($id);
-        return view('edit', compact('mahasiswa'));
+        return view('mahasiswa.edit', compact('mahasiswa'));
     }
 
     /**
@@ -169,7 +169,7 @@ class MahasiswaController extends Controller
     public function listsampah()
     {
         $mahasiswa = mahasiswa::onlyTrashed()->get();
-            return view('list-sampah', compact(
+            return view('mahasiswa.list-sampah', compact(
                 'mahasiswa'
             ));
     }
