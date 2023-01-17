@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Daftar Mahasiswa</title>
+    <title>Daftar Dosen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
@@ -30,45 +30,35 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="{{ route('mahasiswa.create') }}" class="btn btn-md btn-success mb-3 float-right">Input Mahasiswa</a>
+                        <a href="{{ route('dosen.create') }}" class="btn btn-md btn-success mb-3 float-right">Input Dosen</a>
                         @if($sampah > 0)
-                        <a href="{{ route('list.sampah') }}" class="btn btn-md btn-warning mb-3 float-left">Recycle Mahasiswa</a>
+                        <a href="{{ route('list.sampah') }}" class="btn btn-md btn-warning mb-3 float-left">Recycle Dosen</a>
                         @endif
                         <table class="table table-bordered mt-1">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">NIM</th>
+                                    <th scope="col">NIP</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Alamat</th>
-                                    <th scope="col">Jurusan</th>
+                                    <th scope="col">Departemen</th>
                                     <th scope="col">Kontak</th>
-                                    <th scope="col">IPK</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($mahasiswa as $m)
+                                @forelse ($dosen as $m)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $m->nim }}</td>
+                                    <td>{{ $m->nip }}</td>
                                     <td>{{ $m->nama }}</td>
                                     <td>{{ $m->alamat }}</td>
-                                    <td>{{ $m->jurusan }}</td>
+                                    <td>{{ $m->departemen }}</td>
                                     <td>{{ $m->contact }}</td>
-                                    <td>
-                                      @if ($m->ipk >= 3 && $m->ipk < 4)
-                                        <span class="badge badge-success" style="width: 50px">{{ $m->ipk }}</span>
-                                      @elseif($m->ipk < 3)
-                                        <span class="badge badge-danger" style="width: 50px">{{ $m->ipk }}</span>
-                                      @elseif($m->ipk == 4)
-                                      <span class="badge badge-primary" style="width: 50px">{{ $m->ipk }}</span>
-                                      @endif
-                                    </td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                            action="{{ route('mahasiswa.destroy', $m->id) }}" method="POST">
-                                            <a href="{{ route('mahasiswa.edit', $m->id) }}"
+                                            action="{{ route('dosen.destroy', $m->id) }}" method="POST">
+                                            <a href="{{ route('dosen.edit', $m->id) }}"
                                                 class="btn btn-sm btn-primary">EDIT</a>
                                             @csrf
                                             @method('DELETE')
@@ -78,7 +68,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center text-mute" colspan="4">Data mahasiswa tidak tersedia</td>
+                                    <td class="text-center text-mute" colspan="4">Data Dosen tidak tersedia</td>
                                 </tr>
                                 @endforelse
                             </tbody>

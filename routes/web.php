@@ -21,3 +21,8 @@ Route::resource('mahasiswa', MahasiswaController::class);
 Route::get('sampah', [MahasiswaController::class, 'listsampah'])->name('list.sampah');
 Route::get('sampah/mahasiswa/restore/{id?}', [MahasiswaController::class,'restore'])->name('sampah.mahasiswa.restore');
 Route::delete('sampah/mahasiswa/delete/{id?}', [MahasiswaController::class,'delete'])->name('sampah.mahasiswa.delete');
+
+Route::resource('dosen', DosenController::class);
+Route::get('sampahdosen', [DosenController::class, 'listsampah'])->name('list.sampah');
+Route::get('sampahdosen/dosen/restore/{id?}', [DosenController::class,'restore'])->name('sampah.dosen.restore');
+Route::delete('sampahdosen/dosen/delete/{id?}', [DosenController::class,'delete'])->name('sampah.dosen.delete');

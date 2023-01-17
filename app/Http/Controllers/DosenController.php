@@ -14,7 +14,9 @@ class DosenController extends Controller
      */
     public function index()
     {
-        //
+        $dosen = dosen::latest()->get();
+        $sampah = dosen::onlyTrashed()->count();
+        return view('dosen.dosen', compact('dosen','sampah'));
     }
 
     /**
