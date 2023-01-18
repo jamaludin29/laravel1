@@ -5,7 +5,7 @@
     <meta name="viewport" alamat="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" alamat="ie=edge">
     <meta name="csrf-token" alamat="{{ csrf_token() }}">
-    <title>Input Mahasiswa - Daftar Mahasiswa</title>
+    <title>Input dosen - Daftar dosen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- include summernote css -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
@@ -33,18 +33,18 @@
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
 
-                        <form action="{{ route('mahasiswa.store') }}" method="POST">
+                        <form action="{{ route('dosen.store') }}" method="POST">
                             @csrf
 
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="nim">NIM</label>
-                                        <input type="text" class="form-control @error('nim') is-invalid @enderror"
-                                            name="nim" value="{{ old('nim') }}" required>
+                                        <label for="nip">NIP</label>
+                                        <input type="text" class="form-control @error('nip') is-invalid @enderror"
+                                            name="nip" value="{{ old('nip') }}" required>
         
                                         <!-- error message untuk title -->
-                                        @error('nim')
+                                        @error('nip')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -87,12 +87,12 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="jurusan">Jurusan</label>
-                                        <input type="text" class="form-control @error('jurusan') is-invalid @enderror"
-                                            name="jurusan" value="{{ old('jurusan') }}" required>
+                                        <label for="departemen">departemen</label>
+                                        <input type="text" class="form-control @error('departemen') is-invalid @enderror"
+                                            name="departemen" value="{{ old('departemen') }}" required>
         
                                         <!-- error message untuk title -->
-                                        @error('jurusan')
+                                        @error('departemen')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -116,21 +116,8 @@
                             </div>
                             
 
-                            <div class="form-group">
-                                <label for="ipk">IPK</label>
-                                <input type="number" step="0.01" max="4" class="form-control @error('ipk') is-invalid @enderror"
-                                    name="ipk" value="{{ old('ipk') }}" required>
-
-                                <!-- error message untuk title -->
-                                @error('ipk')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-
                             <button type="submit" class="btn btn-md btn-primary">Simpan</button>
-                            <a href="{{ route('mahasiswa.index') }}" class="btn btn-md btn-secondary">Kembali</a>
+                            <a href="{{ route('dosen.index') }}" class="btn btn-md btn-secondary">Kembali</a>
 
                         </form>
                     </div>

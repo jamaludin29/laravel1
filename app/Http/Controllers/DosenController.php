@@ -26,7 +26,7 @@ class DosenController extends Controller
      */
     public function create()
     {
-        //
+        return view('dosen.create');
     }
 
     /**
@@ -37,7 +37,36 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nip' => 'required|unique:dosens',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'departemen' => 'required',
+            'contact' => 'required'
+        ]);
+
+        $dosen = dosen::create([
+            'nip' => $request->nip,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'departemen' => $request->departemen,
+            'contact' => $request->contact
+        ]);
+
+        if ($dosen) {
+            return redirect()
+                ->route('dosen.index')
+                ->with([
+                    'success' => 'Data dosen Berhasil Ditambahkan'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Terjadi Kesalahan, Tolong Periksa'
+                ]);
+        }
     }
 
     /**
@@ -57,9 +86,10 @@ class DosenController extends Controller
      * @param  \App\Models\dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function edit(dosen $dosen)
+    public function edit($id)
     {
-        //
+        $dosen = dosen::findOrFail($id);
+        return view('dosen.edit', compact('dosen'));
     }
 
     /**
@@ -69,9 +99,40 @@ class DosenController extends Controller
      * @param  \App\Models\dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, dosen $dosen)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nip' => 'required',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'departemen' => 'required',
+            'contact' => 'required'
+        ]);
+
+        $dosen = dosen::findOrFail($id);
+
+        $dosen->update([
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'departemen' => $request->departemen,
+            'contact' => $request->contact
+        ]);
+
+        if ($dosen) {
+            return redirect()
+                ->route('dosen.index')
+                ->with([
+                    'success' => 'Data dosen Berhasil Diubah'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Terjadi Kesalahan, Tolong Periksa'
+                ]);
+        }
     }
 
     /**
@@ -107,4 +168,62 @@ class DosenController extends Controller
                 'dosen'
             ));
     }
+
+    public function restore( $id = null)
+    {
+        $dosen = dosen::onlyTrashed();
+        if($dosen->count() == 0) {
+            return redirect()
+                ->route('dosen.index')
+                ->with([
+                    'success' => 'Sampah Kosong'
+                ]);
+        }
+
+        if ($id != null) {
+            $dosen->where('id', $id)->restore();
+            return redirect()
+                ->route('dosen.index')
+                ->with([
+                    'success' => 'Data dosen Berhasil Dipulihkan'
+                ]);
+        } else {
+            $dosen->restore();
+            return redirect()
+                ->route('dosen.index')
+                ->with([
+                    'success' => 'Data dosen Berhasil Dipulihkan Semua'
+                ]);
+        }
+    }
+
+    public function delete($id = null)
+    {
+        $dosen = dosen::onlyTrashed();
+        if($dosen->count() == 0) {
+            return redirect()
+                ->route('dosen.index')
+                ->with([
+                    'success' => 'Sampah Kosong'
+                ]);
+        }
+
+        if ($id != null) {
+            $m = $dosen->where('id', $id)->first();
+            $m->forceDelete();
+            return redirect()
+                ->route('dosen.index')
+                ->with([
+                    'success' => 'Data dosen Berhasil Dihapus Permanen'
+                ]);
+        } else {
+            $dosen->forceDelete();
+            return redirect()
+                ->route('dosen.index')
+                ->with([
+                    'success' => 'Data dosen Berhasil Dihapus Permanen Semua'
+                ]);
+        }
+    }
+
 }
