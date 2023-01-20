@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\mahasiswa;
 use Illuminate\Http\Request;
+use App\Models\user;
 
 class MahasiswaController extends Controller
 {
@@ -16,6 +17,10 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = mahasiswa::latest()->get();
         $sampah = mahasiswa::onlyTrashed()->count();
+       
+        // $user = user::all();
+        // dd($user); untuk cek apakah datanya ada sebelum menjalan view 
+        
         return view('mahasiswa.mahasiswa', compact('mahasiswa','sampah'));
     }
 

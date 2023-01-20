@@ -10,6 +10,12 @@ class mahasiswa extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'nim','nama','alamat','jurusan','contact','ipk'
+        'nama','alamat','jurusan','contact','ipk'
+
+        // 'nim','nama','alamat','jurusan','contact','ipk' hilangkan nim untuk fungsi hidden saat di dd
+    ];
+
+    protected $hidden = [
+        'nim'
     ];
 }

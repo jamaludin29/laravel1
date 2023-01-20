@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::group(['middleware' => ['auth']], function() {
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('mahasiswa', MahasiswaController::class);
 Route::get('sampah', [MahasiswaController::class, 'listsampah'])->name('list.sampah');
 Route::get('sampah/mahasiswa/restore/{id?}', [MahasiswaController::class,'restore'])->name('sampah.mahasiswa.restore');
@@ -27,3 +33,5 @@ Route::resource('dosen', DosenController::class);
 Route::get('sampahdosen', [DosenController::class, 'listsampah'])->name('list.sampah');
 Route::get('sampahdosen/dosen/restore/{id?}', [DosenController::class,'restore'])->name('sampah.dosen.restore');
 Route::delete('sampahdosen/dosen/delete/{id?}', [DosenController::class,'delete'])->name('sampah.dosen.delete');
+
+});
