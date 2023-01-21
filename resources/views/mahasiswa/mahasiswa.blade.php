@@ -1,4 +1,4 @@
-<html lang="en">
+{{-- <html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,10 @@
 
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12"> --}}
+
+                @extends('layouts.main')
+                @section('data')
 
                 <!-- Notifikasi menggunakan flash session data -->
                 @if (session('success'))
@@ -85,7 +88,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            {{-- </div>
         </div>
     </div>
 
@@ -94,4 +97,5 @@
 
 </body>
 
-</html>
+</html> --}}
+@endsection

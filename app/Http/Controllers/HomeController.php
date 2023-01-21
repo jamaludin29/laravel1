@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\dosen;
+use App\Models\mahasiswa;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,6 +26,10 @@ class HomeController extends Controller
     public function index()
     {
         // return view('home');
-        return view('latihan.pisah');
+       
+        $dosen = dosen::latest()->get();
+        $sampah = dosen::onlyTrashed()->count();
+        return view('dosen', compact('dosen','sampah'));
+        
     }
 }
