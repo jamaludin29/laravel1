@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-12"> --}}
 
-                @extends('layouts.main')
+                @extends('layouts.main',['title' => 'Data Dosen'])
                 @section('data')
 
 

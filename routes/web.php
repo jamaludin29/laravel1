@@ -20,6 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+    Route::fallback(function () {
+    return "Maaf, alamat tidak ditemukan";
+    });
+
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {

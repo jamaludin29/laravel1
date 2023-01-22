@@ -15,8 +15,11 @@
         <div class="row">
             <div class="col-md-12"> --}}
 
-                @extends('layouts.main')
+                {{-- @include('layout.main',['title' => 'Data Mahasiswa']) --}}
+                @extends('layouts.main',['title' => 'Data Mahasiswa'])
                 @section('data')
+                
+
 
                 <!-- Notifikasi menggunakan flash session data -->
                 @if (session('success'))
