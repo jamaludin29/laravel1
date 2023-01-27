@@ -33,7 +33,7 @@
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
 
-                        <form action="{{ route('mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('mahasiswa.store') }}" method="POST">
                             @csrf
 
                             <div class="row">
@@ -88,16 +88,9 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="id_prodi">Prodi</label>
-                                        {{-- <input type="text" class="form-control @error('id_prodi') is-invalid @enderror"
-                                            name="id_prodi" value="{{ old('id_prodi') }}" required> --}}
+                                        <input type="text" class="form-control @error('id_prodi') is-invalid @enderror"
+                                            name="id_prodi" value="{{ old('id_prodi') }}" required>
         
-                                            <select class="form-control" data-toggle="select" name="id_prodi" required>
-                                                <option value="" selected style="align-items: center">Pilih Prodi</option>
-                                                @foreach ($prodi as $k)
-                                                    <option value="{{ $k->id_prodi }}">{{ $k->nama_prodi }}</option>
-                                                @endforeach
-                                            </select>
-
                                         <!-- error message untuk title -->
                                         @error('id_prodi')
                                         <div class="invalid-feedback">

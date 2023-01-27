@@ -81,15 +81,8 @@
 
                             <div class="form-group">
                                 <label for="id_prodi">Prodi</label>
-                                {{-- <input type="text" class="form-control @error('id_prodi') is-invalid @enderror"
-                                    name="id_prodi" value="{{ old('id_prodi', $mahasiswa->id_prodi) }}" required> --}}
-
-                                    <select class="form-control" data-toggle="select" name="id_prodi" required>
-                                        <option value="{{$mahasiswa->id_prodi}}" selected style="align-items: center">{{$mahasiswa->prodis->nama_prodi}}</option>
-                                        @foreach ($prodi as $k)
-                                            <option value="{{ $k->id_prodi }}">{{ $k->nama_prodi }}</option>
-                                        @endforeach
-                                    </select>
+                                <input type="text" class="form-control @error('id_prodi') is-invalid @enderror"
+                                    name="id_prodi" value="{{ old('id_prodi', $mahasiswa->id_prodi) }}" required>
 
                                 <!-- error message untuk title -->
                                 @error('id_prodi')
@@ -101,14 +94,9 @@
 
                             <div class="form-group">
                                 <label for="foto">Foto</label>
-                                <input type="file" class="form-control @error('foto') is-invalid @enderror"
-                                    name="foto" value="{{ old('foto', $mahasiswa->foto) }}">
+                                <input type="text" class="form-control @error('foto') is-invalid @enderror"
+                                    name="foto" value="{{ old('foto', $mahasiswa->foto) }}" required>
 
-                                    @if ($mahasiswa->foto == null)
-                                    <img src="{{ asset('img/profile/image.jpg')}}" class="img-thumbnail" alt="...">
-                                    @else 
-                                    <img src="{{ asset('img/profile/'.$mahasiswa->foto)}}" class="img-thumbnail" alt="...">
-                                    @endif
                                 <!-- error message untuk title -->
                                 @error('foto')
                                 <div class="invalid-feedback">

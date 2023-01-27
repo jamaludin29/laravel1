@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\prodi;
 use App\Models\mahasiswa;
 use Illuminate\Http\Request;
 use App\Models\user;
+use Image;
+use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
+
+
+
 
 class MahasiswaController extends Controller
 {
@@ -31,7 +38,8 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswa.create');
+        $prodi=prodi::all();
+        return view('mahasiswa.create',compact('prodi'));
     }
 
     /**
@@ -40,26 +48,38 @@ class MahasiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, mahasiswa $mahasiswa)
     {
         $this->validate($request, [
             'nim' => 'required|unique:mahasiswas',
-            'nama' => 'required',
+            'nama' => 'required|max:225',
             'alamat' => 'required',
-            'jurusan' => 'required',
-            'contact' => 'required',
-            'ipk' => 'required',
+            'id_prodi' => 'required',
+            // 'foto' => 'required|mimes:jpg,bmp,png|size:3000',
+            'foto' => 'required',
+            'jenkel' => 'required',
         ]);
 
-        $mahasiswa = mahasiswa::create([
-            'nim' => $request->nim,
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'jurusan' => $request->jurusan,
-            'contact' => $request->contact,
-            'ipk' => $request->ipk
-        ]);
+        
+        $input = $request->all();
+        if ($request->file('foto')) {
+            File::delete('img/profile/' . $mahasiswa->foto);
+            $file = $request->file('foto');
+            // $file_name = time() . str_replace(" ", "", $file->getClientOriginalName());
+            // $file_name = $request->nama. '-' . str_replace(" ", "", $file->getClientOriginalName());
+            // $file_name = carbon::today()->format('Y-m-d') . '-' . str_replace(" ", "", $file->getClientOriginalName());
+            $extention=$file->extension();
+            $file_name = carbon::today()->format('Y-m-d') . '-' . $request->nama . '.' .$extention;
+            $destinationPath = public_path('img/profile');
+            $fotoFile = Image::make($file->getRealPath());
+            $fotoFile->resize(400,400)->save($destinationPath.'/'.$file_name);
+            $input['foto']=$file_name;
+           
+        }
+        $mahasiswa = mahasiswa::create($input);
 
+      
+           
         if ($mahasiswa) {
             return redirect()
                 ->route('mahasiswa.index')
@@ -95,8 +115,9 @@ class MahasiswaController extends Controller
      */
     public function edit($id)
     {
+        $prodi=prodi::all();
         $mahasiswa = mahasiswa::findOrFail($id);
-        return view('mahasiswa.edit', compact('mahasiswa'));
+        return view('mahasiswa.edit', compact('mahasiswa','prodi'));
     }
 
     /**
@@ -112,21 +133,36 @@ class MahasiswaController extends Controller
             'nim' => 'required',
             'nama' => 'required',
             'alamat' => 'required',
-            'jurusan' => 'required',
-            'contact' => 'required',
-            'ipk' => 'required',
+            'id_prodi' => 'required',
+            // 'foto' => 'required',
+            'jenkel' => 'required',
         ]);
+        
+        $input = $request->all();
+        $mahasiswa = mahasiswa::find($id);
+        // dd($mahasiswa->nama);
+        if ($request->file('foto')) {
+            File::delete('img/profile/' . $mahasiswa->foto);
+            $file = $request->file('foto');
+            // $file_name = time() . str_replace(" ", "", $file->getClientOriginalName());
+            $extention=$file->extension();
+            $file_names = carbon::today()->format('Y-m-d') . '-' . $mahasiswa->nama . '.' .$extention;
+            $destinationPath = public_path('img/profile');
+            $fotoFile = Image::make($file->getRealPath());
+            $fotoFile->resize(400,400)->save($destinationPath.'/'.$file_names);
+            $input['foto']=$file_names;
+           
+        }
+        
 
-        $mahasiswa = mahasiswa::findOrFail($id);
-
-        $mahasiswa->update([
-            'nim' => $request->nim,
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'jurusan' => $request->jurusan,
-            'contact' => $request->contact,
-            'ipk' => $request->ipk
-        ]);
+        $mahasiswa->update($input
+            // 'nim' => $request->nim,
+            // 'nama' => $request->nama,
+            // 'alamat' => $request->alamat,
+            // 'id_prodi' => $request->id_prodi,
+            // 'foto' => $file_name,
+            // 'jenkel' => $request->jenkel
+        );
 
         if ($mahasiswa) {
             return redirect()
@@ -235,4 +271,22 @@ class MahasiswaController extends Controller
                 ]);
         }
     }
+
+    public function raw(){
+        $result = DB::table('mahasiswas')
+         ->selectRaw('count(*) as total_mahasiswa')
+         ->get();
+        
+        //  echo(). '<br>'; // 3
+        }
+
+        public function prosesFileUpload(Request $request){
+            $request->validate([
+             'berkas' => 'required|file|image|max:1000',
+             ]);
+            
+             $path = $request->berkas->store('uploads');
+             echo "Proses upload berhasil, file berada di: $path";
+             }
+
 }

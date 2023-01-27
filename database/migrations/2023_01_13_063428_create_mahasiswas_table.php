@@ -18,9 +18,9 @@ class CreateMahasiswasTable extends Migration
             $table->string('nim')->unique();
             $table->string('nama');
             $table->text('alamat');
-            $table->string('jurusan');
-            $table->string('contact');
-            $table->float('ipk');
+            $table->string('id_prodi')->nullable();
+            $table->string('foto')->nullable();
+            $table->char('jenkel');
             $table->softDeletes();
             $table->timestamps();
         });

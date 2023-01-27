@@ -23,9 +23,10 @@ class MahasiswaFactory extends Factory
             'nim' => $this->faker->numerify('feb-####'),
             'nama' => $this->faker->name,
             'alamat' => $this->faker->address,
-            'jurusan' => $this->faker->word,
-            'contact' => $this->faker->randomDigitNotNull(),
-            'ipk' => $this->faker->randomFloat(2,3,4),
+            'id_prodi' => $this->faker->randomDigitNotNull(),
+            // 'foto' => $this->faker->randomDigitNotNull(),
+            'jenkel' => $this->faker->word,
+            // 'ipk' => $this->faker->randomFloat(2,3,4),
         ];
     }
 }

@@ -17,6 +17,7 @@
 
                 {{-- @include('layout.main',['title' => 'Data Mahasiswa']) --}}
                 @extends('layouts.main',['title' => 'Data Mahasiswa'])
+                
                 @section('data')
                 
 
@@ -38,7 +39,7 @@
                     <div class="card-body">
                         <a href="{{ route('mahasiswa.create') }}" class="btn btn-md btn-success mb-3 float-right">Input Mahasiswa</a>
                         @if($sampah > 0)
-                        <a href="{{ route('list.sampah') }}" class="btn btn-md btn-warning mb-3 float-left">Recycle Mahasiswa</a>
+                        <a href="{{ route('list.sampahM') }}" class="btn btn-md btn-warning mb-3 float-left">Recycle Mahasiswa</a>
                         @endif
                         <table class="table table-bordered mt-1">
                             <thead>
@@ -47,9 +48,9 @@
                                     <th scope="col">NIM</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Alamat</th>
-                                    <th scope="col">Jurusan</th>
-                                    <th scope="col">Kontak</th>
-                                    <th scope="col">IPK</th>
+                                    <th scope="col">Prodi</th>
+                                    <th scope="col">Foto</th>
+                                    <th scope="col">Jenkel</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -60,9 +61,13 @@
                                     <td>{{ $m->nim }}</td>
                                     <td>{{ $m->nama }}</td>
                                     <td>{{ $m->alamat }}</td>
-                                    <td>{{ $m->jurusan }}</td>
-                                    <td>{{ $m->contact }}</td>
-                                    <td>
+                                    {{-- <td>{{ $m->id_prodi }}</td> --}}
+                                    <td>{{ $m->prodis->nama_prodi}}</td>
+                                    {{-- <td><img src="{{ asset('img/profile/'.$m->foto)}}" class="img-thumbnail" alt="..."></td> --}}
+                                    <td>{{ $m->foto }}</td>
+                                    <td>{{ $m->jenkel }}</td>
+                                    
+                                    {{-- <td>
                                       @if ($m->ipk >= 3 && $m->ipk < 4)
                                         <span class="badge badge-success" style="width: 50px">{{ $m->ipk }}</span>
                                       @elseif($m->ipk < 3)
@@ -70,7 +75,7 @@
                                       @elseif($m->ipk == 4)
                                       <span class="badge badge-primary" style="width: 50px">{{ $m->ipk }}</span>
                                       @endif
-                                    </td>
+                                    </td> --}}
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                             action="{{ route('mahasiswa.destroy', $m->id) }}" method="POST">
