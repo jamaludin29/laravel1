@@ -1,10 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\DosenController;
 use App\Http\Controllers\DepartemenController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,16 +27,16 @@ Route::get('/', function () {
     return "Maaf, alamat tidak ditemukan";
     });
 
-Auth::routes();
-
-Route::group(['middleware' => ['auth']], function() {
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::resource('mahasiswa', MahasiswaController::class);
-Route::get('sampah', [MahasiswaController::class, 'listsampah'])->name('list.sampahM');
-Route::get('sampah/mahasiswa/restore/{id?}', [MahasiswaController::class,'restore'])->name('sampah.mahasiswa.restore');
-Route::delete('sampah/mahasiswa/delete/{id?}', [MahasiswaController::class,'delete'])->name('sampah.mahasiswa.delete');
+    Auth::routes();
+    
+    Route::group(['middleware' => ['auth']], function() {
+        
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        
+        Route::resource('mahasiswa', MahasiswaController::class);
+        Route::get('sampah', [MahasiswaController::class, 'listsampah'])->name('list.sampahM')->middleware('can:updated,user');
+        Route::get('sampah/mahasiswa/restore/{id?}', [MahasiswaController::class,'restore'])->name('sampah.mahasiswa.restore')->middleware('can:updated,user');
+        Route::delete('sampah/mahasiswa/delete/{id?}', [MahasiswaController::class,'delete'])->name('sampah.mahasiswa.delete')->middleware('can:updated,user');
 
 Route::resource('dosen', DosenController::class);
 Route::get('sampahdosen', [DosenController::class, 'listsampah'])->name('list.sampahD');
@@ -48,5 +50,10 @@ Route::resource('departemen', DepartemenController::class);
 
 
 Route::resource('prodi', ProdiController::class);
+Route::get('sampahprodi', [ProdiController::class, 'listsampah'])->name('list.sampahP');
+Route::get('sampahprodi/prodi/restore/{id?}', [ProdiController::class,'restore'])->name('sampah.prodi.restore');
+Route::delete('sampahprodi/prodi/delete/{id?}', [ProdiController::class,'delete'])->name('sampah.prodi.delete');
+
+
 
 });

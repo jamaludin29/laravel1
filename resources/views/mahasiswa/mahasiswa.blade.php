@@ -38,9 +38,11 @@
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
                         <a href="{{ route('mahasiswa.create') }}" class="btn btn-md btn-success mb-3 float-right">Input Mahasiswa</a>
+                        @canany('update', $user)
                         @if($sampah > 0)
                         <a href="{{ route('list.sampahM') }}" class="btn btn-md btn-warning mb-3 float-left">Recycle Mahasiswa</a>
                         @endif
+                        @endcanany
                         <table class="table table-bordered mt-1">
                             <thead>
                                 <tr>

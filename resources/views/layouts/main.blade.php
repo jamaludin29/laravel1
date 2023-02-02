@@ -61,14 +61,15 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                    <span>Master Data</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Master:</h6>
+                        <h6 class="collapse-header">Master Data:</h6>
                         <a class="collapse-item" href="dosen">Dosen</a>
                         <a class="collapse-item" href="mahasiswa">Mahasiswa</a>
                         <a class="collapse-item" href="departemen">Departemen</a>
+                        <a class="collapse-item" href="prodi">Prodi</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Transaksi:</h6>
                         <a class="collapse-item" href="">404 Page</a>
@@ -239,11 +240,20 @@
                                 aria-labelledby="userDropdown">
                                 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+                                                                
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+
                             </div>
+
+                            
                         </li>
 
                     </ul>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Edit Mahasiswa - Daftar Mahasiswa</title>
+    <title>Edit Prodi - Daftar Prodi</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- include summernote css -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
@@ -32,57 +32,14 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <form action="{{ route('mahasiswa.update', $mahasiswa->id) }}" method="POST">
+                        <form action="{{ route('prodi.update', $prodi->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             
                             <div class="form-group">
-                                <label for="nim">NIM</label>
-                                <input type="text" class="form-control @error('nim') is-invalid @enderror"
-                                    name="nim" value="{{ old('nim', $mahasiswa->nim) }}" required>
-
-                                <!-- error message untuk title -->
-                                @error('nim')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="nama">Nama</label>
-                                <input type="text" class="form-control @error('nama') is-invalid @enderror"
-                                    name="nama" value="{{ old('nama', $mahasiswa->nama) }}" required>
-
-                                <!-- error message untuk title -->
-                                @error('nama')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="alamat">Alamat</label>
-                                <textarea
-                                    name="alamat" id="alamat"
-                                    class="form-control @error('alamat') is-invalid @enderror"
-                                    rows="5"
-                                    required>{{ old('alamat', $mahasiswa->alamat) }}
-                                </textarea>
-
-                                <!-- error message untuk alamat -->
-                                @error('alamat')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="id_prodi">Prodi</label>
+                                <label for="id_prodi">ID Prodi</label>
                                 <input type="text" class="form-control @error('id_prodi') is-invalid @enderror"
-                                    name="id_prodi" value="{{ old('id_prodi', $mahasiswa->id_prodi) }}" required>
+                                    name="id_prodi" value="{{ old('id_prodi', $prodi->id_prodi) }}" required>
 
                                 <!-- error message untuk title -->
                                 @error('id_prodi')
@@ -93,25 +50,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="foto">Foto</label>
-                                <input type="text" class="form-control @error('foto') is-invalid @enderror"
-                                    name="foto" value="{{ old('foto', $mahasiswa->foto) }}" required>
+                                <label for="nama_prodi">Nama Prodi</label>
+                                <input type="text" class="form-control @error('nama_prodi') is-invalid @enderror"
+                                    name="nama_prodi" value="{{ old('nama_prodi', $prodi->nama_prodi) }}" required>
 
                                 <!-- error message untuk title -->
-                                @error('foto')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="jenkel">Jenkel</label>
-                                <input type="text" class="form-control @error('jenkel') is-invalid @enderror"
-                                    name="jenkel" value="{{ old('jenkel', $mahasiswa->jenkel) }}" required>
-
-                                <!-- error message untuk title -->
-                                @error('jenkel')
+                                @error('nama_prodi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -119,7 +63,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-md btn-primary">Ubah</button>
-                            <a href="{{ route('mahasiswa.index') }}" class="btn btn-md btn-secondary">Kembali</a>
+                            <a href="{{ route('prodi.index') }}" class="btn btn-md btn-secondary">Kembali</a>
                         </form>
                     </div>
                 </div>

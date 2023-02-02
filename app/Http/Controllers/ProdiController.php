@@ -15,6 +15,7 @@ class ProdiController extends Controller
     public function index()
     {
         $prodi = prodi::latest()->get();
+        // dd($prodi);
         $sampah = prodi::onlyTrashed()->count();
        
         // $user = user::all();
@@ -30,7 +31,7 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        //
+        return view('prodi.create');
     }
 
     /**
@@ -41,7 +42,32 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'id_prodi' => 'required|unique:prodis',
+            'nama_prodi' => 'required|max:225',
+            
+        ]);
+
+        $prodi = prodi::create([
+            'id_prodi' => $request->id_prodi,
+            'nama_prodi' => $request->nama_prodi,
+            
+        ]);
+
+        if ($prodi) {
+            return redirect()
+                ->route('prodi.index')
+                ->with([
+                    'success' => 'Data Prodi Berhasil Ditambahkan'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Terjadi Kesalahan, Tolong Periksa'
+                ]);
+        }
     }
 
     /**
@@ -61,9 +87,10 @@ class ProdiController extends Controller
      * @param  \App\Models\prodi  $prodi
      * @return \Illuminate\Http\Response
      */
-    public function edit(prodi $prodi)
+    public function edit($id)
     {
-        //
+        $prodi = prodi::findOrFail($id);
+        return view('prodi.edit', compact('prodi'));
     }
 
     /**
@@ -73,9 +100,36 @@ class ProdiController extends Controller
      * @param  \App\Models\prodi  $prodi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, prodi $prodi)
+    public function update(Request $request,  $id)
     {
-        //
+        $this->validate($request, [
+            'id_prodi' => 'required',
+            'nama_prodi' => 'required',
+           
+        ]);
+
+        $prodi = prodi::findOrFail($id);
+
+        $prodi->update([
+            'id_prodi' => $request->id_prodi,
+            'nama_prodi' => $request->nama_prodi,
+           
+        ]);
+
+        if ($prodi) {
+            return redirect()
+                ->route('prodi.index')
+                ->with([
+                    'success' => 'Data prodi Berhasil Diubah'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Terjadi Kesalahan, Tolong Periksa'
+                ]);
+        }
     }
 
     /**
@@ -84,8 +138,88 @@ class ProdiController extends Controller
      * @param  \App\Models\prodi  $prodi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(prodi $prodi)
+    public function destroy($id)
     {
-        //
+        $prodi = prodi::findOrFail($id);
+        $prodi->delete();
+        if ($prodi) {
+            return redirect()
+                ->route('prodi.index')
+                ->with([
+                    'success' => 'Data prodi Berhasil Dihapus'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Terjadi Kesalahan, Tolong Periksa'
+                ]);
+        }
+    }
+
+    public function listsampah()
+    {
+        $prodi = prodi::onlyTrashed()->get();
+            return view('prodi.list-sampah', compact(
+                'prodi'
+            ));
+    }
+
+    public function restore( $id = null)
+    {
+        $prodi = prodi::onlyTrashed();
+        if($prodi->count() == 0) {
+            return redirect()
+                ->route('prodi.index')
+                ->with([
+                    'success' => 'Sampah Kosong'
+                ]);
+        }
+
+        if ($id != null) {
+            $prodi->where('id', $id)->restore();
+            return redirect()
+                ->route('prodi.index')
+                ->with([
+                    'success' => 'Data prodi Berhasil Dipulihkan'
+                ]);
+        } else {
+            $prodi->restore();
+            return redirect()
+                ->route('prodi.index')
+                ->with([
+                    'success' => 'Data prodi Berhasil Dipulihkan Semua'
+                ]);
+        }
+    }
+
+    public function delete($id = null)
+    {
+        $prodi = prodi::onlyTrashed();
+        if($prodi->count() == 0) {
+            return redirect()
+                ->route('prodi.index')
+                ->with([
+                    'success' => 'Sampah Kosong'
+                ]);
+        }
+
+        if ($id != null) {
+            $m = $prodi->where('id', $id)->first();
+            $m->forceDelete();
+            return redirect()
+                ->route('prodi.index')
+                ->with([
+                    'success' => 'Data prodi Berhasil Dihapus Permanen'
+                ]);
+        } else {
+            $prodi->forceDelete();
+            return redirect()
+                ->route('prodi.index')
+                ->with([
+                    'success' => 'Data prodi Berhasil Dihapus Permanen Semua'
+                ]);
+        }
     }
 }

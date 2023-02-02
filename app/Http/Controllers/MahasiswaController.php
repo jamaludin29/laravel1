@@ -9,7 +9,7 @@ use App\Models\user;
 use Image;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -20,15 +20,26 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //  function __construct()
+    //  {
+    //      $this->middleware('permission:sekolah-list|sekolah-create|sekolah-edit|sekolah-delete', ['only' => ['index','store']]);
+    //      $this->middleware('permission:sekolah-create', ['only' => ['create','store']]);
+    //      $this->middleware('permission:sekolah-edit', ['only' => ['edit','update']]);
+    //      $this->middleware('permission:sekolah-delete', ['only' => ['destroy']]);
+    //  }
+
     public function index()
     {
+        $user = Auth::user();
+        // dd($user);
         $mahasiswa = mahasiswa::latest()->get();
         $sampah = mahasiswa::onlyTrashed()->count();
        
         // $user = user::all();
         // dd($user); untuk cek apakah datanya ada sebelum menjalan view 
         
-        return view('mahasiswa.mahasiswa', compact('mahasiswa','sampah'));
+        return view('mahasiswa.mahasiswa', compact('mahasiswa','sampah','user'));
     }
 
     /**
@@ -288,5 +299,6 @@ class MahasiswaController extends Controller
              $path = $request->berkas->store('uploads');
              echo "Proses upload berhasil, file berada di: $path";
              }
+
 
 }

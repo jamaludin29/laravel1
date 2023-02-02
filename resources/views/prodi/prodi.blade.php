@@ -39,7 +39,7 @@
                     <div class="card-body">
                         <a href="{{ route('prodi.create') }}" class="btn btn-md btn-success mb-3 float-right">Input Prodi</a>
                         @if($sampah > 0)
-                        <a href="{{ route('list.sampahM') }}" class="btn btn-md btn-warning mb-3 float-left">Recycle Prodi</a>
+                        <a href="{{ route('list.sampahP') }}" class="btn btn-md btn-warning mb-3 float-left">Recycle Prodi</a>
                         @endif
                         <table class="table table-bordered mt-1">
                             <thead>
@@ -58,8 +58,8 @@
                                     <td>{{ $m->nama_prodi }}</td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                            action="{{ route('prodi.destroy', $m->id_prodi) }}" method="POST">
-                                            <a href="{{ route('prodi.edit', $m->id_prodi) }}"
+                                            action="{{ route('prodi.destroy', $m->id) }}" method="POST">
+                                            <a href="{{ route('prodi.edit', $m->id) }}"
                                                 class="btn btn-sm btn-primary">EDIT</a>
                                             @csrf
                                             @method('DELETE')
