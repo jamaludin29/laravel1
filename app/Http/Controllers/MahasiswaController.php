@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\departemen;
 use App\Models\prodi;
 use App\Models\mahasiswa;
 use Illuminate\Http\Request;
@@ -51,6 +52,9 @@ class MahasiswaController extends Controller
     {
         $prodi=prodi::all();
         return view('mahasiswa.create',compact('prodi'));
+
+        // $dept=departemen::all();
+        // return view('mahasiswa.create',compact('dept'));
     }
 
     /**
@@ -69,19 +73,22 @@ class MahasiswaController extends Controller
             // 'foto' => 'required|mimes:jpg,bmp,png|size:3000',
             'foto' => 'required',
             'jenkel' => 'required',
+            'ipk' => 'required',
         ]);
 
         
         $input = $request->all();
         if ($request->file('foto')) {
-            File::delete('img/profile/' . $mahasiswa->foto);
+            // File::delete('img/profile/' . $mahasiswa->foto);
+            File::delete('img/mhs/' . $mahasiswa->foto);
             $file = $request->file('foto');
             // $file_name = time() . str_replace(" ", "", $file->getClientOriginalName());
             // $file_name = $request->nama. '-' . str_replace(" ", "", $file->getClientOriginalName());
             // $file_name = carbon::today()->format('Y-m-d') . '-' . str_replace(" ", "", $file->getClientOriginalName());
             $extention=$file->extension();
             $file_name = carbon::today()->format('Y-m-d') . '-' . $request->nama . '.' .$extention;
-            $destinationPath = public_path('img/profile');
+            // $destinationPath = public_path('img/profile');
+            $destinationPath = public_path('img/mhs');
             $fotoFile = Image::make($file->getRealPath());
             $fotoFile->resize(400,400)->save($destinationPath.'/'.$file_name);
             $input['foto']=$file_name;
@@ -147,18 +154,21 @@ class MahasiswaController extends Controller
             'id_prodi' => 'required',
             // 'foto' => 'required',
             'jenkel' => 'required',
+            'ipk' => 'required',
         ]);
         
         $input = $request->all();
         $mahasiswa = mahasiswa::find($id);
         // dd($mahasiswa->nama);
         if ($request->file('foto')) {
-            File::delete('img/profile/' . $mahasiswa->foto);
+            // File::delete('img/profile/' . $mahasiswa->foto);
+            File::delete('img/mhs/' . $mahasiswa->foto);
             $file = $request->file('foto');
             // $file_name = time() . str_replace(" ", "", $file->getClientOriginalName());
             $extention=$file->extension();
             $file_names = carbon::today()->format('Y-m-d') . '-' . $mahasiswa->nama . '.' .$extention;
-            $destinationPath = public_path('img/profile');
+            // $destinationPath = public_path('img/profile');
+            $destinationPath = public_path('img/mhs');
             $fotoFile = Image::make($file->getRealPath());
             $fotoFile->resize(400,400)->save($destinationPath.'/'.$file_names);
             $input['foto']=$file_names;

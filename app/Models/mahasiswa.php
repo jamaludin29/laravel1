@@ -11,7 +11,7 @@ class mahasiswa extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'nim','nama','alamat','id_prodi','foto','jenkel'
+        'nim','nama','alamat','id_prodi','foto','jenkel','ipk'
 
         // 'nim','nama','alamat','jurusan','contact','ipk' hilangkan nim untuk fungsi hidden saat di dd
     ];

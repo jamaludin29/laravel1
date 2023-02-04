@@ -57,7 +57,8 @@
                                     <td>{{ $m->nip }}</td>
                                     <td>{{ $m->nama }}</td>
                                     <td>{{ $m->alamat }}</td>
-                                    <td>{{ $m->departemen }}</td>
+                                    {{-- <td>{{ $m->departemen }}</td> --}}
+                                    <td>{{ $m->departemens->nama_dept}}</td>
                                     <td>{{ $m->contact }}</td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"

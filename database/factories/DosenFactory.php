@@ -22,7 +22,8 @@ class DosenFactory extends Factory
             'nip' => $this->faker->numerify('feb-####'),
             'nama' => $this->faker->name,
             'alamat' => $this->faker->address,
-            'departemen' => $this->faker->word,
+            // 'departemen' => $this->faker->word,
+            'id_dept' => $this->faker->randomDigitNotNull(),
             'contact' => $this->faker->randomDigitNotNull(),
 
         ];

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Edit Dosen - Daftar Dosen</title>
+    <title>Edit Departemen - Daftar Departemen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- include summernote css -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
@@ -32,64 +32,14 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <form action="{{ route('dosen.update', $dosen->id) }}" method="POST">
+                        <form action="{{ route('departemen.update', $departemen->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             
                             <div class="form-group">
-                                <label for="nip">NIP</label>
-                                <input type="text" class="form-control @error('nip') is-invalid @enderror"
-                                    name="nip" value="{{ old('nip', $dosen->nip) }}" required>
-
-                                <!-- error message untuk title -->
-                                @error('nip')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="nama">Nama</label>
-                                <input type="text" class="form-control @error('nama') is-invalid @enderror"
-                                    name="nama" value="{{ old('nama', $dosen->nama) }}" required>
-
-                                <!-- error message untuk title -->
-                                @error('nama')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="alamat">Alamat</label>
-                                <textarea
-                                    name="alamat" id="alamat"
-                                    class="form-control @error('alamat') is-invalid @enderror"
-                                    rows="5"
-                                    required>{{ old('alamat', $dosen->alamat) }}
-                                </textarea>
-
-                                <!-- error message untuk alamat -->
-                                @error('alamat')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="id_dept">departemen</label>
-                                {{-- <input type="text" class="form-control @error('departemen') is-invalid @enderror"
-                                    name="departemen" value="{{ old('departemen', $dosen->departemen) }}" required> --}}
-
-                                    <select class="form-control" data-toggle="select" name="id_dept" required>
-                                        <option value="{{$dosen->id_dept}}" selected style="align-items: center">{{$dosen->departemens->nama_dept}}</option>
-                                        @foreach ($dept as $k)
-                                            <option value="{{ $k->id_dept }}">{{ $k->nama_dept }}</option>
-                                        @endforeach
-                                    </select>
+                                <label for="id_dept">ID Departemen</label>
+                                <input type="text" class="form-control @error('id_dept') is-invalid @enderror"
+                                    name="id_dept" value="{{ old('id_dept', $departemen->id_dept) }}" required>
 
                                 <!-- error message untuk title -->
                                 @error('id_dept')
@@ -100,12 +50,32 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="contact">Kontak</label>
-                                <input type="text" class="form-control @error('contact') is-invalid @enderror"
-                                    name="contact" value="{{ old('contact', $dosen->contact) }}" required>
+                                <label for="nama_dept">Nama Departemen</label>
+                                <input type="text" class="form-control @error('nama_dept') is-invalid @enderror"
+                                    name="nama_dept" value="{{ old('nama_dept', $departemen->nama_dept) }}" required>
 
                                 <!-- error message untuk title -->
-                                @error('contact')
+                                @error('nama_dept')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_prodi">Prodi</label>
+                                {{-- <input type="text" class="form-control @error('id_prodi') is-invalid @enderror"
+                                    name="id_prodi" value="{{ old('id_prodi', $mahasiswa->id_prodi) }}" required> --}}
+
+                                    <select class="form-control" data-toggle="select" name="id_prodi" required>
+                                        <option value="{{$departemen->id_prodi}}" selected style="align-items: center">{{$departemen->prodis->nama_prodi}}</option>
+                                        @foreach ($prodi as $k)
+                                            <option value="{{ $k->id_prodi }}">{{ $k->nama_prodi }}</option>
+                                        @endforeach
+                                    </select>
+
+                                <!-- error message untuk title -->
+                                @error('id_prodi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -113,7 +83,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-md btn-primary">Ubah</button>
-                            <a href="{{ route('dosen.index') }}" class="btn btn-md btn-secondary">Kembali</a>
+                            <a href="{{ route('departemen.index') }}" class="btn btn-md btn-secondary">Kembali</a>
                         </form>
                     </div>
                 </div>

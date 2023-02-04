@@ -147,23 +147,25 @@
                                     </div>
                             </div>
                             
+                            <div class="row>
+                                <div class="form-group">
+                                    <label for="ipk">IPK</label>
+                                    <input type="number" step="0.01" max="4" class="form-control @error('ipk') is-invalid @enderror"
+                                        name="ipk" value="{{ old('ipk') }}" required>
 
-                            {{-- <div class="form-group">
-                                <label for="ipk">IPK</label>
-                                <input type="number" step="0.01" max="4" class="form-control @error('ipk') is-invalid @enderror"
-                                    name="ipk" value="{{ old('ipk') }}" required>
-
-                                <!-- error message untuk title -->
-                                @error('ipk')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                                    <!-- error message untuk title -->
+                                    @error('ipk')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
-                                @enderror
-                            </div> --}}
+                            </div>
                         </div>
+                        <div>
                             <button type="submit" class="btn btn-md btn-primary">Simpan</button>
                             <a href="{{ route('mahasiswa.index') }}" class="btn btn-md btn-secondary">Kembali</a>
-{{-- </div> --}}
+                        </div>
                         </form>
                     </div>
                 </div>

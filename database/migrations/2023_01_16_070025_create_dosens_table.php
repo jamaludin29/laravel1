@@ -18,7 +18,7 @@ return new class extends Migration
                 $table->string('nip')->unique();
                 $table->string('nama');
                 $table->text('alamat');
-                $table->string('departemen');
+                $table->string('id_dept');
                 $table->string('contact');
                 $table->softDeletes();
                 $table->timestamps();

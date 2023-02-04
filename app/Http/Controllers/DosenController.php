@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\departemen;
+use App\Models\prodi;
 use App\Models\dosen;
 use Illuminate\Http\Request;
 
@@ -26,7 +28,8 @@ class DosenController extends Controller
      */
     public function create()
     {
-        return view('dosen.create');
+        $dept=departemen::all();
+        return view('dosen.create',compact('dept'));
     }
 
     /**
@@ -41,7 +44,7 @@ class DosenController extends Controller
             'nip' => 'required|unique:dosens',
             'nama' => 'required',
             'alamat' => 'required',
-            'departemen' => 'required',
+            'id_dept' => 'required',
             'contact' => 'required'
         ]);
 
@@ -49,7 +52,7 @@ class DosenController extends Controller
             'nip' => $request->nip,
             'nama' => $request->nama,
             'alamat' => $request->alamat,
-            'departemen' => $request->departemen,
+            'id_dept' => $request->id_dept,
             'contact' => $request->contact
         ]);
 
@@ -88,8 +91,9 @@ class DosenController extends Controller
      */
     public function edit($id)
     {
+        $dept=departemen::all();
         $dosen = dosen::findOrFail($id);
-        return view('dosen.edit', compact('dosen'));
+        return view('dosen.edit', compact('dosen','dept'));
     }
 
     /**
@@ -105,7 +109,7 @@ class DosenController extends Controller
             'nip' => 'required',
             'nama' => 'required',
             'alamat' => 'required',
-            'departemen' => 'required',
+            'id_dept' => 'required',
             'contact' => 'required'
         ]);
 
@@ -115,7 +119,7 @@ class DosenController extends Controller
             'nim' => $request->nim,
             'nama' => $request->nama,
             'alamat' => $request->alamat,
-            'departemen' => $request->departemen,
+            'id_dept' => $request->id_dept,
             'contact' => $request->contact
         ]);
 

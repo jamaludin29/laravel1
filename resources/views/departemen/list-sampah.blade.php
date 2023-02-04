@@ -30,49 +30,41 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="{{ route('sampah.mahasiswa.restore') }}" class="btn btn-md btn-success mb-3 float-right">Pulihkan Semua</a>&nbsp;
-                        <a href="{{ route('sampah.mahasiswa.delete') }}" class="btn btn-md btn-danger mb-3 mr-3 float-right">Hapus Semua</a>
+                        <a href="{{ route('sampah.departemen.restore') }}" class="btn btn-md btn-success mb-3 float-right">Pulihkan Semua</a>&nbsp;
+                        <a href="{{ route('sampah.departemen.delete') }}" class="btn btn-md btn-danger mb-3 mr-3 float-right">Hapus Semua</a>
 
                         <table class="table table-bordered mt-1">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">NIM</th>
+                                    <th scope="col">ID</th>
                                     <th scope="col">Nama</th>
-                                    <th scope="col">Alamat</th>
                                     <th scope="col">Prodi</th>
-                                    <th scope="col">Foto</th>
-                                    <th scope="col">Jenkel</th>
-                                    <th scope="col">IPK</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($mahasiswa as $m)
+                                @forelse ($dept as $m)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $m->nim }}</td>
-                                    <td>{{ $m->nama }}</td>
-                                    <td>{{ $m->alamat }}</td>
-                                    <td>{{ $m->id_prodi }}</td>
-                                    <td>{{ $m->foto }}</td>
+                                    <td>{{ $m->id_dept }}</td>
+                                    <td>{{ $m->nama_dept }}</td>
+                                    <td>{{ $m->prodis->nama_prodi}}</td>
                                     
-                                    <td>{{ $m->jenkel }}</td>
-
-                                    <td>
-                                        @if ($m->ipk >= 3 && $m->ipk < 4)
-                                          <span class="badge badge-success" style="width: 50px">{{ $m->ipk }}</span>
-                                        @elseif($m->ipk < 3)
-                                          <span class="badge badge-danger" style="width: 50px">{{ $m->ipk }}</span>
-                                        @elseif($m->ipk == 4)
-                                        <span class="badge badge-primary" style="width: 50px">{{ $m->ipk }}</span>
-                                        @endif
-                                    </td>
-
+                                    {{-- <td>
+                                      @if ($m->ipk >= 3 && $m->ipk < 4)
+                                        <span class="badge badge-success" style="width: 50px">{{ $m->ipk }}</span>
+                                      @elseif($m->ipk < 3)
+                                        <span class="badge badge-danger" style="width: 50px">{{ $m->ipk }}</span>
+                                      @elseif($m->ipk == 4)
+                                      <span class="badge badge-primary" style="width: 50px">{{ $m->ipk }}</span>
+                                      @endif
+                                    </td> --}}
+                                    
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                            action="{{ route('sampah.mahasiswa.delete', $m->id) }}" method="POST">
-                                            <a href="{{ route('sampah.mahasiswa.restore', $m->id) }}"
+                                            action="{{ route('sampah.departemen.delete', $m->id) }}" method="POST">
+                                            <a href="{{ route('sampah.departemen.restore', $m->id) }}"
                                                 class="btn btn-sm btn-primary">PULIHKAN</a>
                                             @csrf
                                             @method('DELETE')
@@ -82,7 +74,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center text-mute" colspan="4">Data mahasiswa tidak tersedia</td>
+                                    <td class="text-center text-mute" colspan="4">Data departemen tidak tersedia</td>
                                 </tr>
                                 @endforelse
                             </tbody>

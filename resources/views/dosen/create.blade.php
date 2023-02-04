@@ -85,7 +85,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="form-group">
                                         <label for="departemen">departemen</label>
                                         <input type="text" class="form-control @error('departemen') is-invalid @enderror"
@@ -98,7 +98,27 @@
                                         </div>
                                         @enderror
                                     </div>
+                                </div> --}}
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="id_dept">departemen</label>
+                                            <select class="form-control" data-toggle="select" name="id_dept" required>
+                                                <option value="" selected style="align-items: center">Pilih Departemen</option>
+                                                @foreach ($dept as $k)
+                                                    <option value="{{ $k->id_dept }}">{{ $k->nama_dept }}</option>
+                                                @endforeach
+                                            </select>
+
+                                    
+                                        @error('id_dept')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
                                 </div>
+
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="contact">Kontak</label>

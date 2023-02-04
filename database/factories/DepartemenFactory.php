@@ -21,7 +21,7 @@ class DepartemenFactory extends Factory
         return [
             'id_dept' => $this->faker->numerify('dept-####'),
             'nama_dept' => $this->faker->name,
-            'jenjang' => $this->faker->word,
+            'id_prodi' => $this->faker->randomDigitNotNull(),
         ];
     }
 }

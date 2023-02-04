@@ -53,6 +53,7 @@
                                     <th scope="col">Prodi</th>
                                     <th scope="col">Foto</th>
                                     <th scope="col">Jenkel</th>
+                                    <th scope="col">IPK</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -69,7 +70,7 @@
                                     <td>{{ $m->foto }}</td>
                                     <td>{{ $m->jenkel }}</td>
                                     
-                                    {{-- <td>
+                                    <td>
                                       @if ($m->ipk >= 3 && $m->ipk < 4)
                                         <span class="badge badge-success" style="width: 50px">{{ $m->ipk }}</span>
                                       @elseif($m->ipk < 3)
@@ -77,7 +78,8 @@
                                       @elseif($m->ipk == 4)
                                       <span class="badge badge-primary" style="width: 50px">{{ $m->ipk }}</span>
                                       @endif
-                                    </td> --}}
+                                    </td>
+                                    
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                             action="{{ route('mahasiswa.destroy', $m->id) }}" method="POST">

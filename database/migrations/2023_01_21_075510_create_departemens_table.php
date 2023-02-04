@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('id_dept')->unique();
             $table->string('nama_dept');
-            $table->string('jenjang');
+            $table->string('id_prodi');
             $table->softDeletes();
             $table->timestamps();
         });

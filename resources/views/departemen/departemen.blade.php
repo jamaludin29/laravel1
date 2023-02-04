@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Daftar Dosen</title>
+    <title>Daftar departemen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
@@ -34,17 +34,17 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        {{-- <a href="{{ route('dosen.create') }}" class="btn btn-md btn-success mb-3 float-right">Input Dosen</a>
+                        <a href="{{ route('departemen.create') }}" class="btn btn-md btn-success mb-3 float-right">Input Departemen</a>
                         @if($sampah > 0)
-                        <a href="{{ route('list.sampah') }}" class="btn btn-md btn-warning mb-3 float-left">Recycle Dosen</a>
-                        @endif --}}
+                        <a href="{{ route('list.sampahDept') }}" class="btn btn-md btn-warning mb-3 float-left">Recycle Departemen</a>
+                        @endif
                         <table class="table table-bordered mt-1">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
                                     <th scope="col">ID</th>
                                     <th scope="col">Nama</th>
-                                    <th scope="col">Jenjang</th>
+                                    <th scope="col">Prodi</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -54,11 +54,12 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $m->id_dept }}</td>
                                     <td>{{ $m->nama_dept }}</td>
-                                    <td>{{ $m->jenjang }}</td>
+                                    {{-- <td>{{ $m->id_prodi }}</td> --}}
+                                    <td>{{ $m->prodis->nama_prodi}}</td>
                                     <td class="text-center">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                            action="{{ route('dosen.destroy', $m->id_dept) }}" method="POST">
-                                            <a href="{{ route('dosen.edit', $m->id_dept) }}"
+                                            action="{{ route('departemen.destroy', $m->id_dept) }}" method="POST">
+                                            <a href="{{ route('departemen.edit', $m->id_dept) }}"
                                                 class="btn btn-sm btn-primary">EDIT</a>
                                             @csrf
                                             @method('DELETE')
@@ -68,7 +69,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center text-mute" colspan="4">Data Dosen tidak tersedia</td>
+                                    <td class="text-center text-mute" colspan="4">Data departemen tidak tersedia</td>
                                 </tr>
                                 @endforelse
                             </tbody>

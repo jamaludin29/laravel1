@@ -130,6 +130,19 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <label for="ipk">IPK</label>
+                                <input type="text" class="form-control @error('ipk') is-invalid @enderror"
+                                    name="ipk" value="{{ old('jenkel', $mahasiswa->ipk) }}" required>
+
+                                <!-- error message untuk title -->
+                                @error('ipk')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
                             <button type="submit" class="btn btn-md btn-primary">Ubah</button>
                             <a href="{{ route('mahasiswa.index') }}" class="btn btn-md btn-secondary">Kembali</a>
                         </form>
