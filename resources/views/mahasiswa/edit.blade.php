@@ -105,9 +105,9 @@
                                     name="foto" value="{{ old('foto', $mahasiswa->foto) }}">
 
                                     @if ($mahasiswa->foto == null)
-                                    <img src="{{ asset('img/profile/image.jpg')}}" class="img-thumbnail" alt="...">
+                                    <img src="{{ asset('img/mhs/image.jpg')}}" class="img-thumbnail" alt="...">
                                     @else 
-                                    <img src="{{ asset('img/profile/'.$mahasiswa->foto)}}" class="img-thumbnail" alt="...">
+                                    <img src="{{ asset('img/mhs/'.$mahasiswa->foto)}}" class="img-thumbnail" alt="...">
                                     @endif
                                 <!-- error message untuk title -->
                                 @error('foto')
