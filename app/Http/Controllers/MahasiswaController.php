@@ -71,7 +71,7 @@ class MahasiswaController extends Controller
             'alamat' => 'required',
             'id_prodi' => 'required',
             // 'foto' => 'required|mimes:jpg,bmp,png|size:3000',
-            'foto' => 'required',
+            'foto' => 'required|image|file|max:2048',
             'jenkel' => 'required',
             'ipk' => 'required',
         ]);
@@ -99,18 +99,9 @@ class MahasiswaController extends Controller
       
            
         if ($mahasiswa) {
-            return redirect()
-                ->route('mahasiswa.index')
-                ->with([
-                    'success' => 'Data Mahasiswa Berhasil Ditambahkan'
-                ]);
+            return redirect()->route('mahasiswa.index')->with(['success' => 'Data Mahasiswa Berhasil Ditambahkan']);
         } else {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with([
-                    'error' => 'Terjadi Kesalahan, Tolong Periksa'
-                ]);
+            return redirect()->back()->withInput()->with(['error' => 'Terjadi Kesalahan, Tolong Periksa']);
         }
     }
 
@@ -147,12 +138,14 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
+       
         $this->validate($request, [
-            'nim' => 'required',
-            'nama' => 'required',
+            // 'nim' => 'required|unique:mahasiswas',
+            'nama' => 'required|max:225',
             'alamat' => 'required',
             'id_prodi' => 'required',
-            // 'foto' => 'required',
+            // 'foto' => 'required|mimes:jpg,bmp,png|size:3000',
+            'foto' => 'required|image|file|max:2048',
             'jenkel' => 'required',
             'ipk' => 'required',
         ]);
@@ -187,18 +180,10 @@ class MahasiswaController extends Controller
 
         if ($mahasiswa) {
             return redirect()
-                ->route('mahasiswa.index')
-                ->with([
-                    'success' => 'Data Mahasiswa Berhasil Diubah'
-                ]);
-        } else {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with([
-                    'error' => 'Terjadi Kesalahan, Tolong Periksa'
-                ]);
-        }
+                ->route('mahasiswa.index')->with(['success' => 'Data Mahasiswa Berhasil Diubah']);
+            } else {
+                return redirect()->back()->withInput() ->with(['error' => 'Terjadi Kesalahan, Tolong Periksa']);
+            }
     }
 
     /**
@@ -213,17 +198,9 @@ class MahasiswaController extends Controller
         $mahasiswa->delete();
         if ($mahasiswa) {
             return redirect()
-                ->route('mahasiswa.index')
-                ->with([
-                    'success' => 'Data Mahasiswa Berhasil Dihapus'
-                ]);
+                ->route('mahasiswa.index')->with(['success' => 'Data Mahasiswa Berhasil Dihapus']);
         } else {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with([
-                    'error' => 'Terjadi Kesalahan, Tolong Periksa'
-                ]);
+            return redirect()->back()->withInput()->with(['error' => 'Terjadi Kesalahan, Tolong Periksa']);
         }
 
     }
@@ -269,20 +246,16 @@ class MahasiswaController extends Controller
         $mahasiswa = mahasiswa::onlyTrashed();
         if($mahasiswa->count() == 0) {
             return redirect()
-                ->route('mahasiswa.index')
-                ->with([
-                    'success' => 'Sampah Kosong'
-                ]);
+                ->route('mahasiswa.index')->with(['success' => 'Sampah Kosong']);
         }
 
         if ($id != null) {
             $m = $mahasiswa->where('id', $id)->first();
+            
+            // File::delete('img/mhs/' . $mahasiswa->foto);
+
             $m->forceDelete();
-            return redirect()
-                ->route('mahasiswa.index')
-                ->with([
-                    'success' => 'Data Mahasiswa Berhasil Dihapus Permanen'
-                ]);
+            return redirect()->route('mahasiswa.index')->with(['success' => 'Data Mahasiswa Berhasil Dihapus Permanen']);
         } else {
             $mahasiswa->forceDelete();
             return redirect()

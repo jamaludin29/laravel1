@@ -31,9 +31,9 @@
                 @endif
 
                 <div class="card border-0 shadow rounded">
-                    <div class="card-body">
+                        <div class="card-body">
 
-                        <form action="{{ route('mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row">
@@ -51,6 +51,7 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="nama">Nama</label>
@@ -106,12 +107,19 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="foto">FOTO</label>
+                                        {{-- sandika img class--}}
+                                        <img class="img-preview img-fluid mb-3 col-sm-6">
+                                        {{-- <img class="img-preview"> --}}
+                                        
                                         <input type="file" class="form-control @error('foto') is-invalid @enderror"
-                                            name="foto" value="{{ old('foto') }}" required>
+                                            name="foto" id="foto" onchange="previewImage()" value="{{ old('foto') }}" required>
         
+                                        {{-- sandika js img tambahkan onchange --}}
+
                                         <!-- error message untuk title -->
                                         @error('foto')
                                         <div class="invalid-feedback">
@@ -120,10 +128,14 @@
                                         @enderror
                                     </div>
                                 </div>
+                            </div>
+                                
+
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            {{-- <label for="jenkel">Jenkel</label> --}}
+                                            <label for="jenkel">Jenis Kelamin</label>
+                                            
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="jenkel" id="jenkel" value="L">
                                                 <label class="form-check-label" for="jenkel">
@@ -145,9 +157,9 @@
                                             @enderror
                                         </div>
                                     </div>
-                            </div>
+                        
                             
-                            <div class="row>
+                             {{-- <div class="row> --}}
                                 <div class="form-group">
                                     <label for="ipk">IPK</label>
                                     <input type="number" step="0.01" max="4" class="form-control @error('ipk') is-invalid @enderror"
@@ -162,10 +174,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="col-12">
                             <button type="submit" class="btn btn-md btn-primary">Simpan</button>
                             <a href="{{ route('mahasiswa.index') }}" class="btn btn-md btn-secondary">Kembali</a>
-                        </div>
+                        </div><br>
                         </form>
                     </div>
                 </div>
@@ -187,6 +199,26 @@
                 height: 150, //set editable area's height
             });
         })
+
+        
+    </script>
+
+    <script>
+
+        function previewImage() {
+            const foto = document.querySelector('#foto');
+            const imgpreview = document.querySelector('.img-preview');
+
+            imgpreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(foto.files[0]);
+
+            oFReader.onload = function(oFREvent){
+                imgpreview.src = oFREvent.target.result;
+            }
+        }
+
     </script>
 </body>
 

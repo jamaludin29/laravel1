@@ -24,13 +24,13 @@
 
                 <!-- Notifikasi menggunakan flash session data -->
                 @if (session('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success col-lg-8">
                     {{ session('success') }}
                 </div>
                 @endif
 
                 @if (session('error'))
-                <div class="alert alert-error">
+                <div class="alert alert-error col-lg-8">
                     {{ session('error') }}
                 </div>
                 @endif
@@ -81,10 +81,9 @@
                                     </td>
                                     
                                     <td class="text-center">
-                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                            action="{{ route('mahasiswa.destroy', $m->id) }}" method="POST">
-                                            <a href="{{ route('mahasiswa.edit', $m->id) }}"
-                                                class="btn btn-sm btn-primary">EDIT</a>
+                                        <a href="{{ route('mahasiswa.edit', $m->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                        <form class="d-inline" onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('mahasiswa.destroy', $m->id) }}" method="POST">
+                                                                                        
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>

@@ -32,14 +32,14 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <form action="{{ route('mahasiswa.update', $mahasiswa->id) }}" method="POST">
+                        <form action="{{ route('mahasiswa.update', $mahasiswa->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             
                             <div class="form-group">
                                 <label for="nim">NIM</label>
                                 <input type="text" class="form-control @error('nim') is-invalid @enderror"
-                                    name="nim" value="{{ old('nim', $mahasiswa->nim) }}" required>
+                                    name="nim" value="{{ old('nim', $mahasiswa->nim) }}" required readonly>
 
                                 <!-- error message untuk title -->
                                 @error('nim')
@@ -52,7 +52,7 @@
                             <div class="form-group">
                                 <label for="nama">Nama</label>
                                 <input type="text" class="form-control @error('nama') is-invalid @enderror"
-                                    name="nama" value="{{ old('nama', $mahasiswa->nama) }}" required>
+                                    name="nama" value="{{ old('nama', $mahasiswa->nama) }}" required readonly>
 
                                 <!-- error message untuk title -->
                                 @error('nama')
@@ -101,7 +101,8 @@
 
                             <div class="form-group">
                                 <label for="foto">Foto</label>
-                                <input type="file" class="form-control @error('foto') is-invalid @enderror"
+                                <img class="img-preview img-fluid mb-3 col-sm-6">
+                                <input type="file" class="form-control @error('foto') is-invalid @enderror" onchange="previewImage()" id="foto"
                                     name="foto" value="{{ old('foto', $mahasiswa->foto) }}">
 
                                     @if ($mahasiswa->foto == null)
@@ -117,12 +118,15 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
-                                <label for="jenkel">Jenkel</label>
-                                <input type="text" class="form-control @error('jenkel') is-invalid @enderror"
-                                    name="jenkel" value="{{ old('jenkel', $mahasiswa->jenkel) }}" required>
+                            <div>
+                            <label class="form-control" data-toggle="select" for="jenkel">Jenis Kelamin:</label>
+                            
+                            <select class="form-control" name="jenkel" id="jenkel" required>
+                                <option value="{{$mahasiswa->jenkel}}" selected style="align-items: center">{{$mahasiswa->jenkel}}</option>
+                                <option name="jenkel" id="jenkel" value="L">Laki Laki</option>
+                                <option name="jenkel" id="jenkel" value="P">Perempuan</option>
+                            </select>
 
-                                <!-- error message untuk title -->
                                 @error('jenkel')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -165,6 +169,23 @@
                 height: 250, //set editable area's height
             });
         })
+    </script>
+    <script>
+
+        function previewImage() {
+            const foto = document.querySelector('#foto');
+            const imgpreview = document.querySelector('.img-preview');
+
+            imgpreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(foto.files[0]);
+
+            oFReader.onload = function(oFREvent){
+                imgpreview.src = oFREvent.target.result;
+            }
+        }
+
     </script>
 </body>
 
